@@ -2,55 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Wave Hello World</title>
+<title>Editor Layout</title>
 <style>
   body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
-  }
-
-  h1 {
-    font-size: 50px;
     display: flex;
+    height: 100vh;
   }
 
-  h1 span {
-    display: inline-block;
-    animation: wave 0.5s ease-in-out infinite, colorChange 3s linear infinite;
-    animation-delay: calc(var(--i) * 0.1s);
+  #sidebar {
+    width: 10%;
+    border-right: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
   }
 
-  @keyframes wave {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+  #sidebar button {
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
   }
 
-  @keyframes colorChange {
-    0%   { color: red; }
-    25%  { color: orange; }
-    50%  { color: green; }
-    75%  { color: blue; }
-    100% { color: red; }
+  #viewer {
+    width: 90%;
+    height: 100%;
+    border: none;
   }
 </style>
 </head>
 <body>
 
-  <h1 id="text"></h1>
+  <div id="sidebar">
+    <button onclick="loadPage('https://data.instatfootball.tv/auth')">Instat Data</button>
+    <button onclick="loadPage('https://www.google.com')">Google</button>
+    <button onclick="loadPage('https://www.wikipedia.org')">Wikipedia</button>
+  </div>
+
+  <iframe id="viewer" src="https://data.instatfootball.tv/auth"></iframe>
 
   <script>
-    const message = "Namestey!";
-    const h1 = document.getElementById("text");
-
-    [...message].forEach((char, i) => {
-      const span = document.createElement("span");
-      span.textContent = char === " " ? "\u00A0" : char;
-      span.style.setProperty("--i", i);
-      h1.appendChild(span);
-    });
+    function loadPage(url) {
+      document.getElementById('viewer').src = url;
+    }
   </script>
 
 </body>
